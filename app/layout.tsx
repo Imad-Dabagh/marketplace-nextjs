@@ -4,7 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import TopBar from "@/components/navbar/TopBar";
 
-const notoSans = Noto_Sans({ subsets: ["latin"], variable: "--font-sans" });
+const notoSans = Noto_Sans({subsets:['latin'],variable:'--font-sans'});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,9 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Marketplace Next.js",
-  description:
-    "A marketplace built with Next.js, showcasing products and facilitating seamless transactions.",
+  title: "Marketplace",
+  description: "Find your next favorite product on our marketplace.",
 };
 
 export default function RootLayout({
@@ -30,14 +29,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn(
-        "h-full",
-        "antialiased",
-        geistSans.variable,
-        geistMono.variable,
-        "font-sans",
-        notoSans.variable,
-      )}
+      className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", notoSans.variable)}
     >
       <body className="min-h-full flex flex-col">
         <TopBar />
