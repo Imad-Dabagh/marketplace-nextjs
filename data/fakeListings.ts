@@ -3,7 +3,7 @@ import { Listing } from "@/types/listings";
 export const fakeListings: Listing[] = [
   // Electronics (1–6)
   {
-    id: 1,
+    _id: 1,
     title: "iPhone 13 Pro Max - Unlocked",
     price: 899.99,
     description: "Excellent condition, 256GB, Sierra Blue. Includes original box, unused charging cable, and a clear case.",
@@ -13,7 +13,7 @@ export const fakeListings: Listing[] = [
     createdAt: "2025-02-10T10:00:00Z",
   },
   {
-    id: 2,
+    _id: 2,
     title: "Sony WH-1000XM5 Headphones",
     price: 329.99,
     description: "Industry-leading noise cancellation. Barely used, comes with the original carrying case and audio cable.",
@@ -23,7 +23,7 @@ export const fakeListings: Listing[] = [
     createdAt: "2025-02-12T14:30:00Z",
   },
   {
-    id: 3,
+    _id: 3,
     title: "Custom Gaming PC - RTX 4070",
     price: 1550.00,
     description: "Built last month. 32GB DDR5 RAM, 1TB NVMe SSD, liquid cooling, and customizable RGB fans. Runs perfectly.",
@@ -33,7 +33,7 @@ export const fakeListings: Listing[] = [
     createdAt: "2025-02-15T09:15:00Z",
   },
   {
-    id: 4,
+    _id: 4,
     title: "iPad Air 5th Gen + Magic Keyboard",
     price: 499.00,
     description: "64GB Wi-Fi model in Space Gray. Includes the Apple Magic Keyboard case. No scratches on the screen.",
@@ -43,7 +43,7 @@ export const fakeListings: Listing[] = [
     createdAt: "2025-02-18T11:45:00Z",
   },
   {
-    id: 5,
+    _id: 5,
     title: "DJI Mini 3 Pro Drone",
     price: 749.00,
     description: "Fly More combo with 3 batteries and charging hub. Never crashed, less than 2 hours total flight time.",
@@ -53,7 +53,7 @@ export const fakeListings: Listing[] = [
     createdAt: "2025-02-20T08:00:00Z",
   },
   {
-    id: 6,
+    _id: 6,
     title: "Canon EOS R10 Mirrorless Camera",
     price: 1199.00,
     description: "Kit includes 18-45mm lens and a camera strap. Shutter count is well under 500. Like-new condition.",
@@ -65,7 +65,7 @@ export const fakeListings: Listing[] = [
 
   // Fashion (7–12)
   {
-    id: 7,
+    _id: 7,
     title: "Men's Vintage Leather Jacket",
     price: 189.99,
     description: "Heavyweight genuine leather, size L, black. Worn twice, has a great tailored fit.",
@@ -75,7 +75,7 @@ export const fakeListings: Listing[] = [
     createdAt: "2025-02-08T13:10:00Z",
   },
   {
-    id: 8,
+    _id: 8,
     title: "Nike Air Force 1 '07",
     price: 89.99,
     description: "Men's size 10, classic white. Very clean condition, only worn indoors a handful of times.",
@@ -85,7 +85,7 @@ export const fakeListings: Listing[] = [
     createdAt: "2025-02-11T09:40:00Z",
   },
   {
-    id: 9,
+    _id: 9,
     title: "Vintage Levi's 501 Original Fit Jeans",
     price: 120.00,
     description: "Made in USA, 32x32. Classic light wash denim with the perfect amount of natural fading.",
@@ -95,7 +95,7 @@ export const fakeListings: Listing[] = [
     createdAt: "2025-02-14T12:30:00Z",
   },
   {
-    id: 10,
+    _id: 10,
     title: "Gucci GG Supreme Belt",
     price: 350.00,
     description: "100% Authentic, size 90/36. Minor signs of wear on the buckle but the canvas is pristine. Comes with dust bag.",
@@ -105,7 +105,7 @@ export const fakeListings: Listing[] = [
     createdAt: "2025-02-17T15:55:00Z",
   },
   {
-    id: 11,
+    _id: 11,
     title: "Women's 100% Cashmere Sweater",
     price: 79.50,
     description: "Cozy crewneck design, size M, camel color. Super soft and warm, perfect for layering.",
@@ -115,7 +115,7 @@ export const fakeListings: Listing[] = [
     createdAt: "2025-02-19T10:05:00Z",
   },
   {
-    id: 12,
+    _id: 12,
     title: "Ray-Ban Classic Aviator Sunglasses",
     price: 129.99,
     description: "Gold metal frame with classic G-15 green lenses. Comes with the original brown leather case and cloth.",
@@ -127,7 +127,7 @@ export const fakeListings: Listing[] = [
 
   // Furniture (13–18)
   {
-    id: 13,
+    _id: 13,
     title: "Mid-Century Modern Velvet Sofa",
     price: 450.00,
     description: "Tapered teak legs, rich emerald green velvet. Excellent structural shape, no stains or tears.",
@@ -137,7 +137,7 @@ export const fakeListings: Listing[] = [
     createdAt: "2025-02-09T14:20:00Z",
   },
   {
-    id: 14,
+    _id: 14,
     title: "Minimalist Wooden Desk",
     price: 89.00,
     description: "Black-brown finish, features a built-in cable management tray. Some surface scratches but very sturdy.",
@@ -147,7 +147,7 @@ export const fakeListings: Listing[] = [
     createdAt: "2025-02-13T11:10:00Z",
   },
   {
-    id: 15,
+    _id: 15,
     title: "Faux Leather Recliner Accent Chair",
     price: 275.00,
     description: "Sleek brown faux leather with a manual push-back recline. Very comfortable for a reading nook.",
@@ -157,7 +157,7 @@ export const fakeListings: Listing[] = [
     createdAt: "2025-02-16T09:30:00Z",
   },
   {
-    id: 16,
+    _id: 16,
     title: "Round Glass Coffee Table",
     price: 100.00,
     description: "Thick tempered glass top with a geometric chrome base. Modern look, easy to clean.",
@@ -167,7 +167,7 @@ export const fakeListings: Listing[] = [
     createdAt: "2025-02-21T17:40:00Z",
   },
   {
-    id: 17,
+    _id: 17,
     title: "Platform Queen Size Bed Frame",
     price: 210.00,
     description: "Sturdy matte black metal frame. Includes a beautiful rustic wooden headboard. Mattress not included.",
@@ -177,7 +177,7 @@ export const fakeListings: Listing[] = [
     createdAt: "2025-02-24T12:15:00Z",
   },
   {
-    id: 18,
+    _id: 18,
     title: "5-Tier Ladder Bookshelf",
     price: 65.99,
     description: "White metal frame with oak-laminate wooden shelves. Easy to assemble, great for plants and books.",
@@ -189,7 +189,7 @@ export const fakeListings: Listing[] = [
 
   // Sports (19–24)
   {
-    id: 19,
+    _id: 19,
     title: "Trek Hardtail Mountain Bike",
     price: 550.00,
     description: "21-speed Shimano gears, dual disc brakes, 29-inch wheels. Ready to hit the trails.",
@@ -199,7 +199,7 @@ export const fakeListings: Listing[] = [
     createdAt: "2025-02-07T10:15:00Z",
   },
   {
-    id: 20,
+    _id: 20,
     title: "Bowflex SelectTech 552 Dumbbells",
     price: 300.00,
     description: "Adjustable from 5 to 52.5 lbs each. Like new condition, perfect for a home gym setup.",
@@ -209,7 +209,7 @@ export const fakeListings: Listing[] = [
     createdAt: "2025-02-11T14:25:00Z",
   },
   {
-    id: 21,
+    _id: 21,
     title: "Custom Skateboard Complete",
     price: 85.00,
     description: "8.0 maple deck, Independent trucks, Bones Red bearings, and Spitfire wheels. Grip tape is fresh.",
@@ -219,7 +219,7 @@ export const fakeListings: Listing[] = [
     createdAt: "2025-02-14T16:05:00Z",
   },
   {
-    id: 22,
+    _id: 22,
     title: "Wilson Clash 100 Tennis Racket",
     price: 180.00,
     description: "Strung recently with synthetic gut. Grip size 3. Shows minor scuffs on the bumper guard.",
@@ -229,7 +229,7 @@ export const fakeListings: Listing[] = [
     createdAt: "2025-02-18T09:55:00Z",
   },
   {
-    id: 23,
+    _id: 23,
     title: "Premium Home Gym & Bike Mat",
     price: 40.00,
     description: "High-density, non-slip mat. 6’x3’ dimensions. Perfect for under a spin bike or general floor workouts.",
@@ -239,7 +239,7 @@ export const fakeListings: Listing[] = [
     createdAt: "2025-02-21T13:40:00Z",
   },
   {
-    id: 24,
+    _id: 24,
     title: "Coleman 4-Person Dome Tent",
     price: 120.00,
     description: "WeatherTec system keeps water out. Sets up in 10 minutes. Includes rainfly and carrying bag.",
@@ -251,7 +251,7 @@ export const fakeListings: Listing[] = [
 
   // Collectibles (25–30)
   {
-    id: 25,
+    _id: 25,
     title: "Pokémon Base Set Charizard Holo",
     price: 350.00,
     description: "Unlimited edition. Lightly played condition with minor edge whitening. Kept in a top loader.",
@@ -261,7 +261,7 @@ export const fakeListings: Listing[] = [
     createdAt: "2025-02-05T12:00:00Z",
   },
   {
-    id: 26,
+    _id: 26,
     title: "LEGO Star Wars Millennium Falcon",
     price: 620.00,
     description: "100% complete build. Includes all minifigures, the original manual, and the box.",
@@ -271,7 +271,7 @@ export const fakeListings: Listing[] = [
     createdAt: "2025-02-09T15:30:00Z",
   },
   {
-    id: 27,
+    _id: 27,
     title: "Vintage Baseball Cards Mixed Lot",
     price: 95.00,
     description: "1950s-60s mixed stars and commons. 25 cards total. Conditions vary from Poor to Very Good.",
@@ -281,7 +281,7 @@ export const fakeListings: Listing[] = [
     createdAt: "2025-02-13T11:20:00Z",
   },
   {
-    id: 28,
+    _id: 28,
     title: "Funko Pop Marvel Collection Lot",
     price: 210.00,
     description: "12 pieces in total, all mint in box. Includes a few rare convention exclusives and variants.",
@@ -291,7 +291,7 @@ export const fakeListings: Listing[] = [
     createdAt: "2025-02-17T14:45:00Z",
   },
   {
-    id: 29,
+    _id: 29,
     title: "Signed Michael Jordan Bulls Jersey",
     price: 975.00,
     description: "Professionally framed red away jersey. Certificate of Authenticity (COA) is included on the back.",
@@ -301,7 +301,7 @@ export const fakeListings: Listing[] = [
     createdAt: "2025-02-22T08:35:00Z",
   },
   {
-    id: 30,
+    _id: 30,
     title: "First Edition Harry Potter Book",
     price: 4300.00,
     description: "Sorcerer's Stone, UK early print edition. Pages are crisp, dust jacket is in remarkably good shape.",
