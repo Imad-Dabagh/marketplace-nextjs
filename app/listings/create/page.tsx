@@ -1,4 +1,7 @@
 import Link from "next/link";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,10 +16,20 @@ import {
 } from "@/components/ui/select";
 
 import { Textarea } from "@/components/ui/textarea";
-import { fakeCategories } from "@/data/fakeCategories";
 import { createListing } from "./actions";
+import { connectToDatabase } from "@/lib/mongodb";
+import Category from "@/models/category.model";
 
-export default function CreateListingPage() {
+export default async function CreateListingPage() {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    redirect("/login?callbackUrl=/listings/create");
+  }
+
+  await connectToDatabase();
+  const categories = await Category.find().sort({ name: 1 }).lean();
+
   return (
     <main className="min-h-screen bg-zinc-50">
       <section className="mx-auto w-full max-w-3xl px-6 py-10">
@@ -56,15 +69,19 @@ export default function CreateListingPage() {
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Category</label>
 
-                  <Select name="category">
+                  <Select name="categoryId">
                     <SelectTrigger className="w-full">
+
                       <SelectValue placeholder="Select a category" />
                     </SelectTrigger>
 
                     <SelectContent>
-                      {fakeCategories.map((category) => (
-                        <SelectItem key={category} value={category}>
-                          {category}
+                      {categories.map((category: any) => (
+                        <SelectItem
+                          key={category._id.toString()}
+                          value={category._id.toString()}
+                        >
+                          {category.name}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -89,13 +106,13 @@ export default function CreateListingPage() {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium">Product Image</label>
+                <label className="text-sm font-medium">Product Images</label>
 
                 <div className="rounded-xl border border-dashed bg-zinc-50 p-6 text-center">
-                  <Input name="image" type="file" accept="image/*" />
+                  <Input name="images" type="file" accept="image/*" multiple />
 
                   <p className="mt-3 text-sm text-zinc-500">
-                    Upload a clear image of your product.
+                    Upload one or more clear images of your product.
                   </p>
                 </div>
               </div>

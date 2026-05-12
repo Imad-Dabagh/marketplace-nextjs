@@ -1,20 +1,20 @@
+import { ListingDTO } from "@/lib/dtos";
 import Link from "next/link";
-
-import { Listing } from "@/types/listings";
 
 import { Card, CardContent } from "../ui/card";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 
 type ListingCardProps = {
-  listing: Listing;
+  listing: ListingDTO;
 };
 
 export default function ListingCard({ listing }: ListingCardProps) {
+  const imageUrl = listing.imageUrls[0];
   return (
     <Card className="overflow-hidden transition hover:shadow-md">
       <img
-        src={listing.imageUrl}
+        src={imageUrl}
         alt={listing.title}
         className="h-48 w-full object-cover"
       />
@@ -33,7 +33,9 @@ export default function ListingCard({ listing }: ListingCardProps) {
         </p>
 
         <div className="flex flex-wrap gap-2">
-          <Badge variant="secondary">{listing.category}</Badge>
+          <Badge variant="secondary">
+            {listing.categoryName}
+          </Badge>
 
           <Badge variant="outline">{listing.location}</Badge>
         </div>
@@ -44,7 +46,7 @@ export default function ListingCard({ listing }: ListingCardProps) {
           </p>
 
           <Button asChild size="sm">
-            <Link href={`/listings/${listing._id}`}>View Details</Link>
+            <Link href={`/listings/${listing.id}`}>View Details</Link>
           </Button>
         </div>
       </CardContent>

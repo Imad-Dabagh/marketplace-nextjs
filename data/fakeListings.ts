@@ -1,6 +1,4 @@
-import { Listing } from "@/types/listings";
-
-export const fakeListings: Listing[] = [
+export const fakeListings = [
   // Electronics (1–6)
   {
     _id: 1,

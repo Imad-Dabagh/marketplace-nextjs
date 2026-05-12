@@ -11,8 +11,9 @@ const listingSchema = new Schema(
       type: Number,
       required: true,
     },
-    category: {
-      type: String,
+    categoryId: {
+      type: Schema.Types.ObjectId,
+      ref: "Category",
       required: true,
     },
     location: {
@@ -25,25 +26,9 @@ const listingSchema = new Schema(
       required: true,
       trim: true,
     },
-    originalImageUrl: {
-      type: String,
-      default: "",
-    },
-    originalImageBase64: {
-      type: String,
-      default: "",
-    },
-    originalImageMediaType: {
-      type: String,
-      default: "",
-    },
-    enhancedImageUrls: {
+    imageUrls: {
       type: [String],
       default: [],
-    },
-    selectedImageUrl: {
-      type: String,
-      default: "",
     },
     sellerId: {
       type: String,
