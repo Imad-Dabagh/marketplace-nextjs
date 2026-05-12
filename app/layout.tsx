@@ -4,6 +4,8 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import TopBar from "@/components/navbar/TopBar";
 
+import AuthProvider from "@/components/providers/AuthProvider";
+
 const notoSans = Noto_Sans({subsets:['latin'],variable:'--font-sans'});
 
 const geistSans = Geist({
@@ -32,8 +34,10 @@ export default function RootLayout({
       className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", notoSans.variable)}
     >
       <body className="min-h-full flex flex-col">
-        <TopBar />
-        {children}
+        <AuthProvider>
+          <TopBar />
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );
