@@ -14,6 +14,7 @@ export interface ListingDTO {
   categoryName?: string;
   imageUrls: string[];
   sellerId: string;
+  status: "active" | "sold" | "draft";
   createdAt: string;
 }
 

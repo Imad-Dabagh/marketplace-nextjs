@@ -5,7 +5,7 @@ import { ListingInput, ListingSchema } from "../validations/schemas";
 import { CloudinaryService } from "./cloudinary.service";
 
 export class ListingService {
-  static async getListings(filter: ListingFilter): Promise<ListingDTO[]> {
+  static async getListings(filter: ListingFilter = {}): Promise<ListingDTO[]> {
     const listings = await ListingRepository.find(filter);
     return listings.map(Mapper.toListingDTO);
   }
@@ -40,5 +40,17 @@ export class ListingService {
     });
 
     return Mapper.toListingDTO(listing);
+  }
+
+  static async deleteListing(id: string): Promise<void> {
+    await ListingRepository.delete(id);
+  }
+
+  static async updateListingStatus(
+    id: string,
+    status: "active" | "sold" | "draft"
+  ): Promise<ListingDTO | null> {
+    const listing = await ListingRepository.updateStatus(id, status);
+    return listing ? Mapper.toListingDTO(listing) : null;
   }
 }

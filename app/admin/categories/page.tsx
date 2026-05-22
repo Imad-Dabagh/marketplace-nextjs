@@ -1,6 +1,3 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { redirect } from "next/navigation";
 import { CategoryService } from "@/lib/services/category.service";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,20 +6,18 @@ import { Trash2, Plus } from "lucide-react";
 import { createCategory, deleteCategory } from "./actions";
 
 export default async function AdminCategoriesPage() {
-  const session = await getServerSession(authOptions);
-
-  if (!session || (session.user as any).role !== "admin") {
-    redirect("/");
-  }
-
   const categories = await CategoryService.getAllCategories();
 
   return (
-    <div className="mx-auto max-w-4xl px-6 py-10">
-      <h1 className="text-3xl font-bold mb-8">Manage Categories</h1>
+    <div className="mx-auto max-w-5xl px-6 py-8">
+      <div>
+        <h1 className="text-3xl font-bold text-zinc-950">Manage Categories</h1>
+        <p className="mt-2 text-sm text-zinc-600">
+          Keep marketplace browsing clean by organizing listings into clear categories.
+        </p>
+      </div>
 
-      <div className="grid gap-8 md:grid-cols-[1fr_2fr]">
-        {/* ADD CATEGORY */}
+      <div className="mt-8 grid gap-6 md:grid-cols-[1fr_2fr]">
         <Card>
           <CardHeader>
             <CardTitle className="text-lg">Add New Category</CardTitle>
@@ -41,7 +36,6 @@ export default async function AdminCategoriesPage() {
           </CardContent>
         </Card>
 
-        {/* LIST CATEGORIES */}
         <Card>
           <CardHeader>
             <CardTitle className="text-lg">Existing Categories</CardTitle>

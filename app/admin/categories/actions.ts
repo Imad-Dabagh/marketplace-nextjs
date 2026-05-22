@@ -3,10 +3,12 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { CategoryService } from "@/lib/services/category.service";
+import { revalidatePath } from "next/cache";
 
 async function isAdmin() {
   const session = await getServerSession(authOptions);
-  return session?.user && (session.user as any).role === "admin";
+  const user = session?.user as { role?: string } | undefined;
+  return user?.role === "admin";
 }
 
 export async function createCategory(formData: FormData) {
@@ -20,6 +22,8 @@ export async function createCategory(formData: FormData) {
   }
 
   await CategoryService.createCategory(name);
+  revalidatePath("/admin");
+  revalidatePath("/admin/categories");
 }
 
 export async function deleteCategory(id: string) {
@@ -28,4 +32,6 @@ export async function deleteCategory(id: string) {
   }
 
   await CategoryService.deleteCategory(id);
+  revalidatePath("/admin");
+  revalidatePath("/admin/categories");
 }
