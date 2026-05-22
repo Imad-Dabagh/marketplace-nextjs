@@ -1,4 +1,5 @@
 import { Schema, models, model } from "mongoose";
+import "@/models/category.model";
 
 const listingSchema = new Schema(
   {
