@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Eye, Search, Trash2 } from "lucide-react";
+import { Edit, Eye, Search, Trash2 } from "lucide-react";
 import { ListingService } from "@/lib/services/listing.service";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -70,7 +70,7 @@ export default async function AdminListingsPage({
         <CardContent>
           <div className="overflow-x-auto">
             <div className="min-w-[860px]">
-              <div className="grid grid-cols-[2fr_1fr_120px_150px_140px] gap-4 border-b px-3 py-2 text-xs font-semibold uppercase tracking-wide text-zinc-500">
+              <div className="grid grid-cols-[2fr_1fr_120px_150px_180px] gap-4 border-b px-3 py-2 text-xs font-semibold uppercase tracking-wide text-zinc-500">
                 <span>Listing</span>
                 <span>Category</span>
                 <span>Price</span>
@@ -82,7 +82,7 @@ export default async function AdminListingsPage({
                 {listings.map((listing) => (
                   <div
                     key={listing.id}
-                    className="grid grid-cols-[2fr_1fr_120px_150px_140px] items-center gap-4 px-3 py-4"
+                    className="grid grid-cols-[2fr_1fr_120px_150px_180px] items-center gap-4 px-3 py-4"
                   >
                     <div className="min-w-0">
                       <Link
@@ -117,6 +117,14 @@ export default async function AdminListingsPage({
                       </Button>
                     </form>
                     <div className="flex justify-end gap-2">
+                      <Button asChild size="icon" variant="outline">
+                        <Link
+                          href={`/admin/listings/${listing.id}/edit`}
+                          aria-label={`Edit ${listing.title}`}
+                        >
+                          <Edit className="h-4 w-4" />
+                        </Link>
+                      </Button>
                       <Button asChild size="icon" variant="outline">
                         <Link href={`/listings/${listing.id}`} aria-label={`View ${listing.title}`}>
                           <Eye className="h-4 w-4" />

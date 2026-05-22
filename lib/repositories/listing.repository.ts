@@ -14,6 +14,10 @@ type ListingCreateData = ListingInput & {
   status: "active" | "sold" | "draft";
 };
 
+type ListingUpdateData = Partial<ListingInput> & {
+  status?: "active" | "sold" | "draft";
+};
+
 export class ListingRepository {
   static async find(filter: ListingFilter = {}) {
     await connectToDatabase();
@@ -56,5 +60,12 @@ export class ListingRepository {
   static async updateStatus(id: string, status: "active" | "sold" | "draft") {
     await connectToDatabase();
     return Listing.findByIdAndUpdate(id, { status }, { new: true }).lean();
+  }
+
+  static async update(id: string, data: ListingUpdateData) {
+    await connectToDatabase();
+    return Listing.findByIdAndUpdate(id, data, { new: true })
+      .populate("categoryId")
+      .lean();
   }
 }

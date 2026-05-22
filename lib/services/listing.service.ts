@@ -53,4 +53,33 @@ export class ListingService {
     const listing = await ListingRepository.updateStatus(id, status);
     return listing ? Mapper.toListingDTO(listing) : null;
   }
+
+  static async updateListing(
+    id: string,
+    data: ListingInput & { status: "active" | "sold" | "draft" },
+    imageFiles: File[],
+    removeImages = false
+  ): Promise<ListingDTO | null> {
+    const validatedData = ListingSchema.parse(data);
+    const updateData: Omit<ListingInput, "imageUrls"> & {
+      status: "active" | "sold" | "draft";
+      imageUrls?: string[];
+    } = {
+      title: validatedData.title,
+      price: validatedData.price,
+      categoryId: validatedData.categoryId,
+      location: validatedData.location,
+      description: validatedData.description,
+      status: data.status,
+    };
+
+    if (imageFiles.some((file) => file.size > 0)) {
+      updateData.imageUrls = await CloudinaryService.uploadMultipleImages(imageFiles);
+    } else if (removeImages) {
+      updateData.imageUrls = [];
+    }
+
+    const listing = await ListingRepository.update(id, updateData);
+    return listing ? Mapper.toListingDTO(listing) : null;
+  }
 }
