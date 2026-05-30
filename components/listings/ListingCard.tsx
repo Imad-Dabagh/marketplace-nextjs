@@ -33,9 +33,11 @@ export default function ListingCard({ listing }: ListingCardProps) {
             <Badge className="bg-white/95 text-zinc-900 shadow-sm hover:bg-white">
               {listing.categoryName || "Uncategorized"}
             </Badge>
-            <Badge variant="outline" className="bg-zinc-900/10 backdrop-blur-sm text-zinc-900 border-none capitalize">
-              {listing.condition?.replace("_", " ") || "Used"}
-            </Badge>
+            {listing.condition && (
+              <Badge variant="outline" className="bg-zinc-900/10 backdrop-blur-sm text-zinc-900 border-none capitalize">
+                {listing.condition.replace("_", " ")}
+              </Badge>
+            )}
           </div>
         </div>
 

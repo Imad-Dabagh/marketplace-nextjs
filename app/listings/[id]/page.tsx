@@ -63,9 +63,11 @@ export default async function ListingDetailsPage({
                   <Badge className="bg-zinc-900 text-white hover:bg-zinc-800">
                     {listing.categoryName}
                   </Badge>
-                  <Badge variant="outline" className="capitalize">
-                    {listing.condition?.replace("_", " ") || "Used"}
-                  </Badge>
+                  {listing.condition && (
+                    <Badge variant="outline" className="capitalize">
+                      {listing.condition.replace("_", " ")}
+                    </Badge>
+                  )}
                   <div className="flex items-center text-sm text-zinc-500">
                     <MapPin className="mr-1 h-4 w-4" />
                     {listing.location}
