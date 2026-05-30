@@ -69,6 +69,7 @@ export class ListingService {
       price: validatedData.price,
       categoryId: validatedData.categoryId,
       location: validatedData.location,
+      condition: validatedData.condition,
       description: validatedData.description,
       status: data.status,
     };

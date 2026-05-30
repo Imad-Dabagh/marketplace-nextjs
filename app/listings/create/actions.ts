@@ -14,11 +14,17 @@ export async function createListing(formData: FormData) {
     throw new Error("You must be logged in to create a listing");
   }
 
+  const condition = formData.get("condition");
+  if (!condition) {
+    throw new Error("Please select a condition for your listing.");
+  }
+
   const rawData = {
     title: String(formData.get("title") || ""),
     price: Number(formData.get("price") || 0),
     categoryId: String(formData.get("categoryId") || ""),
     location: String(formData.get("location") || ""),
+    condition: String(condition),
     description: String(formData.get("description") || ""),
   };
 

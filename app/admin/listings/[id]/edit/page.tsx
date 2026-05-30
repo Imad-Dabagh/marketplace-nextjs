@@ -122,14 +122,29 @@ export default async function AdminEditListingPage({
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium">Location</label>
-                <Input
-                  name="location"
-                  defaultValue={listing.location}
-                  placeholder="e.g. Casablanca"
-                  required
-                />
+                <label className="text-sm font-medium">Condition</label>
+                <Select name="condition" defaultValue={listing.condition || "good"}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select condition" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="new">New</SelectItem>
+                    <SelectItem value="like_new">Like New</SelectItem>
+                    <SelectItem value="good">Good</SelectItem>
+                    <SelectItem value="fair">Fair</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Location</label>
+              <Input
+                name="location"
+                defaultValue={listing.location}
+                placeholder="e.g. Casablanca"
+                required
+              />
             </div>
 
             <div className="space-y-2">

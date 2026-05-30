@@ -27,6 +27,11 @@ const listingSchema = new Schema(
       required: true,
       trim: true,
     },
+    condition: {
+      type: String,
+      enum: ["new", "like_new", "good", "fair"],
+      required: true,
+    },
     imageUrls: {
       type: [String],
       default: [],

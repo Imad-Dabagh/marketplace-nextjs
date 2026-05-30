@@ -89,10 +89,29 @@ export default async function CreateListingPage() {
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Location</label>
+              <div className="grid gap-5 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Location</label>
 
-                <Input name="location" placeholder="e.g. Casablanca" />
+                  <Input name="location" placeholder="e.g. Casablanca" />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Condition</label>
+
+                  <Select name="condition">
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select condition" />
+                    </SelectTrigger>
+
+                    <SelectContent>
+                      <SelectItem value="new">New</SelectItem>
+                      <SelectItem value="like_new">Like New</SelectItem>
+                      <SelectItem value="good">Good</SelectItem>
+                      <SelectItem value="fair">Fair</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
 
               <div className="space-y-2">

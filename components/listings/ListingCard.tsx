@@ -29,9 +29,12 @@ export default function ListingCard({ listing }: ListingCardProps) {
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="object-cover transition duration-300 group-hover:scale-105"
           />
-          <div className="absolute left-3 top-3">
+          <div className="absolute left-3 top-3 flex gap-2">
             <Badge className="bg-white/95 text-zinc-900 shadow-sm hover:bg-white">
               {listing.categoryName || "Uncategorized"}
+            </Badge>
+            <Badge variant="outline" className="bg-zinc-900/10 backdrop-blur-sm text-zinc-900 border-none capitalize">
+              {listing.condition?.replace("_", " ") || "Used"}
             </Badge>
           </div>
         </div>

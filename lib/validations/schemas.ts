@@ -5,6 +5,9 @@ export const ListingSchema = z.object({
   price: z.number().positive("Price must be a positive number"),
   categoryId: z.string().min(1, "Category is required"),
   location: z.string().min(2, "Location is required").trim(),
+  condition: z.enum(["new", "like_new", "good", "fair"], {
+    message: "Please select a valid condition",
+  }),
   description: z.string().min(10, "Description must be at least 10 characters").trim(),
   imageUrls: z.array(z.string().url()).default([]),
 });

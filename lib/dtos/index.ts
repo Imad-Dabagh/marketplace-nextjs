@@ -9,6 +9,7 @@ export interface ListingDTO {
   title: string;
   price: number;
   description: string;
+  condition: "new" | "like_new" | "good" | "fair";
   location: string;
   categoryId: string;
   categoryName?: string;
