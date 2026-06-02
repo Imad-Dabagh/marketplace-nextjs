@@ -30,7 +30,7 @@ const listingSchema = new Schema(
     condition: {
       type: String,
       enum: ["new", "like_new", "good", "fair"],
-      required: true,
+      default: "good",
     },
     imageUrls: {
       type: [String],

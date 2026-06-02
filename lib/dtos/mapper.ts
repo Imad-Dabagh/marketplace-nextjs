@@ -28,7 +28,7 @@ type ListingDocument = {
   title: string;
   price: number;
   description: string;
-  condition: "new" | "like_new" | "good" | "fair";
+  condition?: "new" | "like_new" | "good" | "fair";
   location: string;
   categoryId?: DocumentId | PopulatedCategory;
   imageUrls?: string[];
@@ -72,7 +72,7 @@ export class Mapper {
       title: doc.title,
       price: doc.price,
       description: doc.description,
-      condition: doc.condition,
+      condition: doc.condition || "good",
       location: doc.location,
       categoryId,
       categoryName: isPopulatedCategory(doc.categoryId) ? doc.categoryId.name : undefined,

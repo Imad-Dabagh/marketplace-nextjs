@@ -14,17 +14,12 @@ export async function createListing(formData: FormData) {
     throw new Error("You must be logged in to create a listing");
   }
 
-  const condition = formData.get("condition");
-  if (!condition) {
-    throw new Error("Please select a condition for your listing.");
-  }
-
   const rawData = {
     title: String(formData.get("title") || ""),
     price: Number(formData.get("price") || 0),
     categoryId: String(formData.get("categoryId") || ""),
     location: String(formData.get("location") || ""),
-    condition: String(condition),
+    condition: String(formData.get("condition") || "good"),
     description: String(formData.get("description") || ""),
   };
 
@@ -33,7 +28,8 @@ export async function createListing(formData: FormData) {
   // Validate with Zod
   const validatedData = ListingSchema.parse(rawData);
 
-  const sellerId = (session.user as any).id || session.user.email;
+  const user = session.user as { id?: string; email?: string | null };
+  const sellerId = user.id || user.email || "";
   
   const listing = await ListingService.createListing(
     validatedData,

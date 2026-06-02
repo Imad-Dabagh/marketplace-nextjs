@@ -7,7 +7,7 @@ export const ListingSchema = z.object({
   location: z.string().min(2, "Location is required").trim(),
   condition: z.enum(["new", "like_new", "good", "fair"], {
     message: "Please select a valid condition",
-  }),
+  }).default("good"),
   description: z.string().min(10, "Description must be at least 10 characters").trim(),
   imageUrls: z.array(z.string().url()).default([]),
 });

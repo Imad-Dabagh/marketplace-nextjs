@@ -54,17 +54,12 @@ export async function updateListing(id: string, formData: FormData) {
     throw new Error("Invalid listing status");
   }
 
-  const condition = formData.get("condition");
-  if (!condition) {
-    throw new Error("Please select a condition for the listing.");
-  }
-
   const rawData = {
     title: String(formData.get("title") || ""),
     price: Number(formData.get("price") || 0),
     categoryId: String(formData.get("categoryId") || ""),
     location: String(formData.get("location") || ""),
-    condition: String(condition),
+    condition: String(formData.get("condition") || "good"),
     description: String(formData.get("description") || ""),
     status: status as (typeof listingStatuses)[number],
   };
