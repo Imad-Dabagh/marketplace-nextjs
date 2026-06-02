@@ -1,7 +1,7 @@
 import { ListingDTO } from "@/lib/dtos";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, CalendarDays, MapPin } from "lucide-react";
+import { ArrowRight, Camera, MapPin, Sparkles } from "lucide-react";
 
 import { Card, CardContent } from "../ui/card";
 import { Badge } from "../ui/badge";
@@ -13,16 +13,17 @@ type ListingCardProps = {
 export default function ListingCard({ listing }: ListingCardProps) {
   const imageUrl = listing.imageUrls[0] || "/placeholder-image.jpg";
   const detailHref = `/listings/${listing.id}`;
-  const postedDate = new Date(listing.createdAt).toLocaleDateString(undefined, {
-    month: "short",
-    day: "numeric",
-  });
   const conditionLabel = (listing.condition || "good").replace("_", " ");
+  const imageCount = listing.imageUrls.length;
+  const isUnavailable = listing.status !== "active";
 
   return (
-    <Link href={detailHref} className="group block h-full">
-      <Card className="h-full overflow-hidden border-zinc-200 bg-white p-0 transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-lg focus-within:border-primary/40">
-        <div className="relative aspect-4/3 overflow-hidden bg-zinc-100">
+    <Link
+      href={detailHref}
+      className="group block h-full rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2"
+    >
+      <Card className="h-full gap-0 overflow-hidden border border-zinc-200 bg-white p-0 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl">
+        <div className="relative aspect-[5/4] overflow-hidden bg-zinc-100">
           <Image
             src={imageUrl}
             alt={listing.title}
@@ -30,49 +31,60 @@ export default function ListingCard({ listing }: ListingCardProps) {
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="object-cover transition duration-300 group-hover:scale-105"
           />
-          <div className="absolute left-3 top-3 flex gap-2">
-            <Badge className="bg-white/95 text-zinc-900 shadow-sm hover:bg-white">
-              {listing.categoryName || "Uncategorized"}
-            </Badge>
-            <Badge variant="outline" className="bg-zinc-900/10 backdrop-blur-sm text-zinc-900 border-none capitalize">
+          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/55 to-transparent" />
+
+          <div className="absolute left-3 top-3 flex flex-wrap gap-2">
+            {isUnavailable && (
+              <Badge className="bg-zinc-950 text-white hover:bg-zinc-950">
+                {listing.status}
+              </Badge>
+            )}
+            <Badge className="bg-white/95 text-zinc-900 shadow-sm hover:bg-white capitalize">
               {conditionLabel}
             </Badge>
           </div>
-        </div>
 
-        <CardContent className="flex min-h-56 flex-col p-4">
-          <div className="flex items-start justify-between gap-3">
-            <h2 className="line-clamp-2 text-base font-semibold leading-snug text-zinc-950 transition-colors group-hover:text-primary">
-              {listing.title.length > 25
-                ? listing.title.slice(0, 25) + "..."
-                : listing.title}
-            </h2>
+          {imageCount > 1 && (
+            <div className="absolute bottom-3 right-3 inline-flex items-center gap-1 rounded-md bg-black/60 px-2 py-1 text-xs font-medium text-white backdrop-blur-sm">
+              <Camera className="h-3.5 w-3.5" />
+              {imageCount}
+            </div>
+          )}
 
-            <p className="shrink-0 text-lg font-bold text-zinc-950">
+          <div className="absolute bottom-3 left-3 right-14">
+            <p className="truncate text-xl font-bold text-white drop-shadow-sm">
               ${listing.price.toLocaleString()}
             </p>
           </div>
+        </div>
+
+        <CardContent className="flex min-h-52 flex-col p-4">
+          <div className="flex items-center justify-between gap-3 text-xs text-zinc-500">
+            <span className="truncate font-medium text-primary">
+              {listing.categoryName || "Uncategorized"}
+            </span>
+            <span className="flex min-w-0 items-center gap-1">
+              <MapPin className="h-3.5 w-3.5 shrink-0 text-zinc-400" />
+              <span className="truncate">{listing.location}</span>
+            </span>
+          </div>
+
+          <h2 className="mt-3 line-clamp-2 min-h-12 text-lg font-semibold leading-6 text-zinc-950 transition-colors group-hover:text-primary">
+            {listing.title}
+          </h2>
 
           <p className="mt-3 line-clamp-2 text-sm leading-6 text-zinc-600">
             {listing.description}
           </p>
 
-          <div className="mt-4 grid gap-2 text-xs text-zinc-500">
-            <span className="flex items-center gap-2">
-              <MapPin className="h-3.5 w-3.5 text-zinc-400" />
-              <span className="truncate">{listing.location}</span>
+          <div className="mt-auto flex items-center justify-between border-t border-zinc-100 pt-4">
+            <span className="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-500">
+              <Sparkles className="h-3.5 w-3.5 text-primary" />
+              Marketplace pick
             </span>
-            <span className="flex items-center gap-2">
-              <CalendarDays className="h-3.5 w-3.5 text-zinc-400" />
-              Posted {postedDate}
-            </span>
-          </div>
-
-          <div className="mt-auto flex items-center justify-between border-t pt-4">
-            <Badge variant="outline">{listing.status}</Badge>
-            <span className="inline-flex items-center gap-1 text-sm font-medium text-primary">
-              View details
-              <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <span className="inline-flex items-center gap-1 text-sm font-semibold text-primary">
+              Details
+              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
             </span>
           </div>
         </CardContent>
