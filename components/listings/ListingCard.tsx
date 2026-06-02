@@ -17,6 +17,7 @@ export default function ListingCard({ listing }: ListingCardProps) {
     month: "short",
     day: "numeric",
   });
+  const conditionLabel = (listing.condition || "good").replace("_", " ");
 
   return (
     <Link href={detailHref} className="group block h-full">
@@ -33,11 +34,9 @@ export default function ListingCard({ listing }: ListingCardProps) {
             <Badge className="bg-white/95 text-zinc-900 shadow-sm hover:bg-white">
               {listing.categoryName || "Uncategorized"}
             </Badge>
-            {listing.condition && (
-              <Badge variant="outline" className="bg-zinc-900/10 backdrop-blur-sm text-zinc-900 border-none capitalize">
-                {listing.condition.replace("_", " ")}
-              </Badge>
-            )}
+            <Badge variant="outline" className="bg-zinc-900/10 backdrop-blur-sm text-zinc-900 border-none capitalize">
+              {conditionLabel}
+            </Badge>
           </div>
         </div>
 

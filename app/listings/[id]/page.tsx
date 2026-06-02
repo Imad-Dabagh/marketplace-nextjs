@@ -31,6 +31,8 @@ export default async function ListingDetailsPage({
     );
   }
 
+  const conditionLabel = (listing.condition || "good").replace("_", " ");
+
   return (
     <main className="flex flex-1 flex-col bg-zinc-50 pb-20">
       <div className="mx-auto w-full max-w-6xl px-6 py-8">
@@ -63,11 +65,9 @@ export default async function ListingDetailsPage({
                   <Badge className="bg-zinc-900 text-white hover:bg-zinc-800">
                     {listing.categoryName}
                   </Badge>
-                  {listing.condition && (
-                    <Badge variant="outline" className="capitalize">
-                      {listing.condition.replace("_", " ")}
-                    </Badge>
-                  )}
+                  <Badge variant="outline" className="capitalize">
+                    {conditionLabel}
+                  </Badge>
                   <div className="flex items-center text-sm text-zinc-500">
                     <MapPin className="mr-1 h-4 w-4" />
                     {listing.location}
