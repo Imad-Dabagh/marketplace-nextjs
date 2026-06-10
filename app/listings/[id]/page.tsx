@@ -86,12 +86,24 @@ export default async function ListingDetailsPage({
 
               <CardContent className="space-y-6">
                 <div className="flex items-center gap-3 border-y py-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-zinc-100 text-zinc-600">
-                    <User className="h-6 w-6" />
-                  </div>
+                  {listing.sellerImage ? (
+                    <img
+                      src={listing.sellerImage}
+                      alt={listing.sellerName || "Seller"}
+                      className="h-12 w-12 rounded-full object-cover"
+                    />
+                  ) : (
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-zinc-100 text-zinc-600">
+                      <User className="h-6 w-6" />
+                    </div>
+                  )}
                   <div>
-                    <p className="text-sm font-medium">Seller</p>
-                    <p className="text-zinc-600">Marketplace User</p>
+                    <p className="text-sm font-medium">{listing.sellerName || "Seller"}</p>
+                    <p className="text-zinc-600 text-sm">
+                      {listing.sellerJoinedAt 
+                        ? `Joined at ${new Date(listing.sellerJoinedAt).getDate().toString().padStart(2, '0')}-${(new Date(listing.sellerJoinedAt).getMonth() + 1).toString().padStart(2, '0')}-${new Date(listing.sellerJoinedAt).getFullYear()}`
+                        : "Marketplace User"}
+                    </p>
                   </div>
                 </div>
 
