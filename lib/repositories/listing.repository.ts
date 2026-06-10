@@ -39,12 +39,19 @@ export class ListingRepository {
       query.status = filter.status;
     }
 
-    return Listing.find(query).populate("categoryId").sort({ createdAt: -1 }).lean();
+    return Listing.find(query)
+      .populate("categoryId")
+      .populate("sellerId", "name image createdAt")
+      .sort({ createdAt: -1 })
+      .lean();
   }
 
   static async findById(id: string) {
     await connectToDatabase();
-    return Listing.findById(id).populate("categoryId").lean();
+    return Listing.findById(id)
+      .populate("categoryId")
+      .populate("sellerId", "name image createdAt")
+      .lean();
   }
 
   static async create(data: ListingCreateData) {

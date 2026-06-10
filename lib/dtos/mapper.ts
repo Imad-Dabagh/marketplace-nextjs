@@ -23,6 +23,13 @@ type PopulatedCategory = {
   name?: string;
 };
 
+type PopulatedUser = {
+  _id: DocumentId;
+  name: string;
+  image?: string;
+  createdAt: Date;
+};
+
 type ListingDocument = {
   _id: DocumentId;
   title: string;
@@ -32,7 +39,7 @@ type ListingDocument = {
   location: string;
   categoryId?: DocumentId | PopulatedCategory;
   imageUrls?: string[];
-  sellerId: string;
+  sellerId: DocumentId | PopulatedUser;
   status: "active" | "sold" | "draft";
   createdAt: Date;
 };
@@ -41,6 +48,12 @@ function isPopulatedCategory(
   category: DocumentId | PopulatedCategory | undefined
 ): category is PopulatedCategory {
   return Boolean(category && "_id" in category);
+}
+
+function isPopulatedUser(
+  user: DocumentId | PopulatedUser | undefined
+): user is PopulatedUser {
+  return Boolean(user && "name" in user);
 }
 
 export class Mapper {
@@ -67,6 +80,10 @@ export class Mapper {
       ? doc.categoryId._id.toString()
       : doc.categoryId?.toString() || "";
 
+    const sellerId = isPopulatedUser(doc.sellerId)
+      ? doc.sellerId._id.toString()
+      : doc.sellerId?.toString() || "";
+
     return {
       id: doc._id.toString(),
       title: doc.title,
@@ -77,7 +94,10 @@ export class Mapper {
       categoryId,
       categoryName: isPopulatedCategory(doc.categoryId) ? doc.categoryId.name : undefined,
       imageUrls: doc.imageUrls || [],
-      sellerId: doc.sellerId,
+      sellerId,
+      sellerName: isPopulatedUser(doc.sellerId) ? doc.sellerId.name : undefined,
+      sellerImage: isPopulatedUser(doc.sellerId) ? doc.sellerId.image : undefined,
+      sellerJoinedAt: isPopulatedUser(doc.sellerId) && doc.sellerId.createdAt ? doc.sellerId.createdAt.toISOString() : undefined,
       status: doc.status,
       createdAt: doc.createdAt.toISOString(),
     };
