@@ -37,8 +37,9 @@ const listingSchema = new Schema(
       default: [],
     },
     sellerId: {
-      type: String,
-      default: "",
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
     status: {
       type: String,
