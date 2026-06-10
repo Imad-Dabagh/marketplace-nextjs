@@ -51,6 +51,7 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
                 src={image}
                 alt={`Thumbnail ${index + 1}`}
                 fill
+                sizes="80px"
                 className="object-cover"
               />
             </button>
