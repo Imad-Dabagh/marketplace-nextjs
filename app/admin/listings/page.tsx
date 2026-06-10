@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Edit, Eye, Search, Trash2 } from "lucide-react";
+import Image from "next/image";
+import { Edit, Eye, Search, Trash2, User } from "lucide-react";
 import { ListingService } from "@/lib/services/listing.service";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -12,25 +13,49 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { deleteListing, updateListingStatus } from "./actions";
 
 type AdminListingsPageProps = {
   searchParams: Promise<{
     q?: string;
     status?: string;
+    edit?: string;
   }>;
 };
+
+import { CategoryService } from "@/lib/services/category.service";
+import { EditListingSidePanel } from "./components/EditListingSidePanel";
 
 const statuses = ["active", "sold", "draft"] as const;
 
 export default async function AdminListingsPage({
   searchParams,
 }: AdminListingsPageProps) {
-  const { q, status } = await searchParams;
-  const listings = await ListingService.getListings({ q, status });
+  const { q, status, edit } = await searchParams;
+  
+  const [listings, editListing, categories] = await Promise.all([
+    ListingService.getListings({ q, status }),
+    edit ? ListingService.getListingById(edit) : Promise.resolve(null),
+    edit ? CategoryService.getAllCategories() : Promise.resolve([]),
+  ]);
 
   return (
     <div className="mx-auto max-w-7xl px-6 py-8">
+      {edit && (
+        <EditListingSidePanel
+          listingId={edit}
+          listing={editListing}
+          categories={categories}
+        />
+      )}
       <div>
         <h1 className="text-3xl font-bold text-zinc-950">Listing Management</h1>
         <p className="mt-2 text-sm text-zinc-600">
@@ -69,92 +94,119 @@ export default async function AdminListingsPage({
         </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">
-            <div className="min-w-[860px]">
-              <div className="grid grid-cols-[2fr_1fr_120px_150px_180px] gap-4 border-b px-3 py-2 text-xs font-semibold uppercase tracking-wide text-zinc-500">
-                <span>Listing</span>
-                <span>Category</span>
-                <span>Price</span>
-                <span>Status</span>
-                <span className="text-right">Actions</span>
-              </div>
-
-              <div className="divide-y">
-                {listings.map((listing) => (
-                  <div
-                    key={listing.id}
-                    className="grid grid-cols-[2fr_1fr_120px_150px_180px] items-center gap-4 px-3 py-4"
-                  >
-                    <div className="min-w-0">
-                      <Link
-                        href={`/listings/${listing.id}`}
-                        className="block truncate font-medium text-zinc-950 hover:text-primary"
-                      >
-                        {listing.title}
-                      </Link>
-                      <p className="mt-1 truncate text-xs text-zinc-500">
-                        {listing.location} · Seller {listing.sellerId || "unknown"}
+            <Table className="min-w-[900px]">
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-[300px]">Listing</TableHead>
+                  <TableHead>Seller</TableHead>
+                  <TableHead>Category</TableHead>
+                  <TableHead>Price</TableHead>
+                  <TableHead className="w-[200px]">Status</TableHead>
+                  <TableHead className="text-right">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {listings.length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={6} className="h-32 text-center">
+                      <Badge variant="outline" className="mb-2">No results</Badge>
+                      <p className="text-sm text-zinc-500">
+                        No listings match the current filters.
                       </p>
-                    </div>
-                    <span className="truncate text-sm text-zinc-600">
-                      {listing.categoryName || "Uncategorized"}
-                    </span>
-                    <span className="font-medium">${listing.price.toLocaleString()}</span>
-                    <form action={updateListingStatus.bind(null, listing.id)}>
-                      <Select name="status" defaultValue={listing.status}>
-                        <SelectTrigger className="h-9">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {statuses.map((item) => (
-                            <SelectItem key={item} value={item}>
-                              {item}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <Button type="submit" size="sm" variant="outline" className="mt-2 w-full">
-                        Save
-                      </Button>
-                    </form>
-                    <div className="flex justify-end gap-2">
-                      <Button asChild size="icon" variant="outline">
+                    </TableCell>
+                  </TableRow>
+                ) : (
+                  listings.map((listing) => (
+                    <TableRow key={listing.id}>
+                      <TableCell className="font-medium max-w-[300px]">
                         <Link
-                          href={`/admin/listings/${listing.id}/edit`}
-                          aria-label={`Edit ${listing.title}`}
+                          href={`/admin/listings?edit=${listing.id}`}
+                          className="group flex items-center gap-3"
                         >
-                          <Edit className="h-4 w-4" />
+                          <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-md border bg-zinc-100">
+                            <Image
+                              src={(listing.imageUrls && listing.imageUrls[0]) || "/placeholder-image.jpg"}
+                              alt={listing.title}
+                              fill
+                              sizes="40px"
+                              className="object-cover transition-transform group-hover:scale-105"
+                            />
+                          </div>
+                          <span className="truncate font-medium text-zinc-950 group-hover:text-primary">
+                            {listing.title}
+                          </span>
                         </Link>
-                      </Button>
-                      <Button asChild size="icon" variant="outline">
-                        <Link href={`/listings/${listing.id}`} aria-label={`View ${listing.title}`}>
-                          <Eye className="h-4 w-4" />
-                        </Link>
-                      </Button>
-                      <form action={deleteListing.bind(null, listing.id)}>
-                        <Button
-                          type="submit"
-                          size="icon"
-                          variant="outline"
-                          className="text-red-600 hover:bg-red-50 hover:text-red-700"
-                          aria-label={`Delete ${listing.title}`}
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </form>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {listings.length === 0 && (
-                <div className="py-12 text-center">
-                  <Badge variant="outline">No results</Badge>
-                  <p className="mt-3 text-sm text-zinc-500">
-                    No listings match the current filters.
-                  </p>
-                </div>
-              )}
-            </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          {listing.sellerImage ? (
+                            <Image
+                              src={listing.sellerImage}
+                              alt={listing.sellerName || "Seller"}
+                              width={24}
+                              height={24}
+                              className="h-6 w-6 rounded-full object-cover"
+                            />
+                          ) : (
+                            <div className="flex h-6 w-6 items-center justify-center rounded-full bg-zinc-100 text-zinc-500">
+                              <User className="h-3 w-3" />
+                            </div>
+                          )}
+                          <span className="max-w-[120px] truncate text-sm text-zinc-600">
+                            {listing.sellerName || "Unknown"}
+                          </span>
+                        </div>
+                      </TableCell>
+                      <TableCell className="truncate text-sm text-zinc-600">
+                        {listing.categoryName || "Uncategorized"}
+                      </TableCell>
+                      <TableCell className="font-medium">
+                        ${listing.price.toLocaleString()}
+                      </TableCell>
+                      <TableCell>
+                        <form action={updateListingStatus.bind(null, listing.id)} className="flex items-center gap-2">
+                          <Select name="status" defaultValue={listing.status}>
+                            <SelectTrigger className="h-8 w-28">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {statuses.map((item) => (
+                                <SelectItem key={item} value={item}>
+                                  {item}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <Button type="submit" size="sm" variant="secondary" className="h-8 px-2 text-xs">
+                            Save
+                          </Button>
+                        </form>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <div className="flex justify-end gap-2">
+                          <Button asChild size="icon" variant="outline" className="h-8 w-8">
+                            <Link href={`/listings/${listing.id}`} aria-label={`View ${listing.title}`}>
+                              <Eye className="h-4 w-4" />
+                            </Link>
+                          </Button>
+                          <form action={deleteListing.bind(null, listing.id)}>
+                            <Button
+                              type="submit"
+                              size="icon"
+                              variant="outline"
+                              className="h-8 w-8 text-red-600 hover:bg-red-50 hover:text-red-700"
+                              aria-label={`Delete ${listing.title}`}
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </form>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )}
+              </TableBody>
+            </Table>
           </div>
         </CardContent>
       </Card>
