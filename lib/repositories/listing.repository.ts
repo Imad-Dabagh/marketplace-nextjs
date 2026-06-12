@@ -7,6 +7,9 @@ export interface ListingFilter {
   categoryId?: string;
   sellerId?: string;
   status?: string;
+  minPrice?: string;
+  maxPrice?: string;
+  condition?: string;
 }
 
 type ListingCreateData = ListingInput & {
@@ -37,6 +40,16 @@ export class ListingRepository {
 
     if (filter.status && filter.status !== "all") {
       query.status = filter.status;
+    }
+
+    if (filter.minPrice || filter.maxPrice) {
+      query.price = {};
+      if (filter.minPrice) (query.price as any).$gte = Number(filter.minPrice);
+      if (filter.maxPrice) (query.price as any).$lte = Number(filter.maxPrice);
+    }
+
+    if (filter.condition && filter.condition !== "all") {
+      query.condition = filter.condition;
     }
 
     return Listing.find(query)
