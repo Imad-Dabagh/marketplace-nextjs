@@ -78,10 +78,29 @@ export default function ListingCard({ listing }: ListingCardProps) {
           </p>
 
           <div className="mt-auto flex items-center justify-between border-t border-zinc-100 pt-4">
-            <span className="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-500">
-              <Sparkles className="h-3.5 w-3.5 text-primary" />
-              Marketplace pick
-            </span>
+            {listing.sellerName ? (
+              <span className="inline-flex items-center gap-2 text-xs font-medium text-zinc-600">
+                {listing.sellerImage ? (
+                  <Image 
+                    src={listing.sellerImage} 
+                    alt={listing.sellerName} 
+                    width={20} 
+                    height={20} 
+                    className="rounded-full object-cover h-5 w-5"
+                  />
+                ) : (
+                  <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-[10px] font-bold text-primary">
+                    {listing.sellerName.charAt(0).toUpperCase()}
+                  </div>
+                )}
+                <span className="truncate max-w-[120px]">{listing.sellerName}</span>
+              </span>
+            ) : (
+              <span className="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-500">
+                <Sparkles className="h-3.5 w-3.5 text-primary" />
+                Marketplace pick
+              </span>
+            )}
             <span className="inline-flex items-center gap-1 text-sm font-semibold text-primary">
               Details
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
