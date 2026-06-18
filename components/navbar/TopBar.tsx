@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import {
@@ -106,9 +107,19 @@ export default function TopBar() {
                 <div className="relative profile-dropdown">
                   <button
                     onClick={() => setIsProfileOpen(!isProfileOpen)}
-                    className="flex h-9 w-9 items-center justify-center rounded-full bg-zinc-100 text-sm font-semibold text-zinc-700 hover:bg-zinc-200 transition-colors border border-zinc-200"
+                    className="flex h-9 w-9 overflow-hidden items-center justify-center rounded-full bg-zinc-100 text-sm font-semibold text-zinc-700 hover:bg-zinc-200 transition-colors border border-zinc-200"
                   >
-                    {userInitials}
+                    {user?.image ? (
+                      <Image
+                        src={user.image}
+                        alt={displayName}
+                        width={36}
+                        height={36}
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      userInitials
+                    )}
                   </button>
 
                   {isProfileOpen && (
