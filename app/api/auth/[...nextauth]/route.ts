@@ -55,4 +55,12 @@ export const authOptions: NextAuthOptions = {
 
 const handler = NextAuth(authOptions);
 
-export { handler as GET, handler as POST };
+export async function GET(req: any, props: { params: Promise<any> }) {
+  const params = await props.params;
+  return handler(req, { params });
+}
+
+export async function POST(req: any, props: { params: Promise<any> }) {
+  const params = await props.params;
+  return handler(req, { params });
+}
