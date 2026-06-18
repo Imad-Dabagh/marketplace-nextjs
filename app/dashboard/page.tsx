@@ -111,12 +111,6 @@ export default async function DashboardPage() {
                 Edit, review, and manage everything you are selling.
               </p>
             </div>
-            <Button asChild variant="outline">
-              <Link href="/listings/create">
-                <Plus className="mr-2 h-4 w-4" />
-                Add Product
-              </Link>
-            </Button>
           </CardHeader>
           <CardContent>
             {listings.length === 0 ? (
