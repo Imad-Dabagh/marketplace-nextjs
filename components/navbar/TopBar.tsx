@@ -80,17 +80,7 @@ export default function TopBar() {
           {/* Right Actions - Desktop */}
           <div className="hidden items-center gap-2 md:flex">
             <nav className="flex items-center gap-1 mr-2">
-              <Link
-                href="/listings"
-                className={cn(
-                  "px-3 py-2 text-sm font-medium transition-colors rounded-lg",
-                  isActive("/listings")
-                    ? "bg-primary/10 text-primary"
-                    : "text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900",
-                )}
-              >
-                Browse
-              </Link>
+
               {isAdmin && (
                 <Link
                   href="/admin"
@@ -203,19 +193,7 @@ export default function TopBar() {
       {isOpen && (
         <div className="border-t border-zinc-100 bg-white p-4 md:hidden animate-in slide-in-from-top duration-200">
           <nav className="grid gap-1">
-            <Link
-              href="/listings"
-              onClick={closeMenus}
-              className={cn(
-                "flex items-center gap-3 rounded-lg px-3 py-2 text-base font-medium transition-colors",
-                isActive("/listings")
-                  ? "bg-primary/10 text-primary"
-                  : "text-zinc-600 hover:bg-zinc-50",
-              )}
-            >
-              <Store className="h-5 w-5" />
-              Browse Listings
-            </Link>
+
 
             {isAdmin && (
               <Link
