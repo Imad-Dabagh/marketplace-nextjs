@@ -20,6 +20,11 @@ export class UserRepository {
 
   static async updateRole(email: string, role: string) {
     await connectToDatabase();
-    return User.findOneAndUpdate({ email }, { role }, { new: true }).lean();
+    return User.findOneAndUpdate({ email }, { role }, { returnDocument: 'after' }).lean();
+  }
+
+  static async updateImage(id: string, imageUrl: string) {
+    await connectToDatabase();
+    return User.findByIdAndUpdate(id, { image: imageUrl }, { returnDocument: 'after' }).lean();
   }
 }

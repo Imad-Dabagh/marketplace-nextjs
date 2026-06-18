@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { User, Mail, ShieldCheck, Calendar, Camera } from "lucide-react";
 import Image from "next/image";
+import { ProfileAvatar } from "@/components/profile/ProfileAvatar";
 
 export default async function ProfilePage() {
   const session = await getServerSession(authOptions);
@@ -54,24 +55,7 @@ export default async function ProfilePage() {
         {/* Left Column: Avatar & Basic Info */}
         <Card className="md:col-span-1">
           <CardContent className="flex flex-col items-center pt-8">
-            <div className="relative mb-4 h-32 w-32 overflow-hidden rounded-full border-4 border-white bg-zinc-100 shadow-lg">
-              {userData.image ? (
-                <Image
-                  src={userData.image}
-                  alt={userData.name}
-                  fill
-                  className="object-cover"
-                />
-              ) : (
-                <div className="flex h-full w-full items-center justify-center bg-zinc-100 text-4xl font-bold text-zinc-400">
-                  {userData.name?.substring(0, 2).toUpperCase() || 'U'}
-                </div>
-              )}
-              {/* Overlay for Future Update Image Feature */}
-              <div className="absolute inset-0 flex cursor-pointer items-center justify-center bg-black/40 opacity-0 transition-opacity hover:opacity-100">
-                <Camera className="h-8 w-8 text-white" />
-              </div>
-            </div>
+            <ProfileAvatar user={{ name: userData.name, image: userData.image }} />
             <h2 className="text-xl font-bold text-zinc-950">{userData.name}</h2>
             <p className="text-sm text-zinc-500">{userData.email}</p>
             <div className="mt-4 flex gap-2">
