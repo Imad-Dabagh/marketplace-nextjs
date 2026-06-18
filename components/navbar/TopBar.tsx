@@ -11,6 +11,7 @@ import {
   Plus,
   ShieldCheck,
   Store,
+  User,
   UserPlus,
   X,
 } from "lucide-react";
@@ -121,6 +122,14 @@ export default function TopBar() {
                         </p>
                       </div>
                       <Link
+                        href="/profile"
+                        onClick={closeMenus}
+                        className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-zinc-700 hover:bg-zinc-50 transition-colors"
+                      >
+                        <User className="h-4 w-4" />
+                        Profile
+                      </Link>
+                      <Link
                         href="/dashboard"
                         onClick={closeMenus}
                         className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-zinc-700 hover:bg-zinc-50 transition-colors"
@@ -215,6 +224,19 @@ export default function TopBar() {
 
             {session ? (
               <>
+                <Link
+                  href="/profile"
+                  onClick={closeMenus}
+                  className={cn(
+                    "flex items-center gap-3 rounded-lg px-3 py-2 text-base font-medium transition-colors",
+                    isActive("/profile")
+                      ? "bg-primary/10 text-primary"
+                      : "text-zinc-600 hover:bg-zinc-50",
+                  )}
+                >
+                  <User className="h-5 w-5" />
+                  Profile
+                </Link>
                 <Link
                   href="/dashboard"
                   onClick={closeMenus}
