@@ -7,6 +7,8 @@ import { Badge } from "@/components/ui/badge";
 import { User, Mail, ShieldCheck, Calendar, Camera } from "lucide-react";
 import Image from "next/image";
 import { ProfileAvatar } from "@/components/profile/ProfileAvatar";
+import { EditProfileDialog } from "@/components/profile/EditProfileDialog";
+import { ChangePasswordDialog } from "@/components/profile/ChangePasswordDialog";
 
 export default async function ProfilePage() {
   const session = await getServerSession(authOptions);
@@ -111,15 +113,11 @@ export default async function ProfilePage() {
             {/* Future Placeholder for Actions */}
             <div className="mt-8 border-t border-zinc-100 pt-6">
               <p className="text-sm text-zinc-500 mb-4">
-                Updating profile information will be available soon.
+                Manage your profile settings below.
               </p>
               <div className="flex gap-3">
-                <button disabled className="rounded-lg bg-zinc-100 px-4 py-2 text-sm font-medium text-zinc-400">
-                  Edit Profile
-                </button>
-                <button disabled className="rounded-lg bg-zinc-100 px-4 py-2 text-sm font-medium text-zinc-400">
-                  Change Password
-                </button>
+                <EditProfileDialog user={{ name: userData.name }} />
+                <ChangePasswordDialog />
               </div>
             </div>
           </CardContent>

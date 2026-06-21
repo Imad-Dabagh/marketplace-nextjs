@@ -27,4 +27,14 @@ export class UserRepository {
     await connectToDatabase();
     return User.findByIdAndUpdate(id, { image: imageUrl }, { returnDocument: 'after' }).lean();
   }
+
+  static async updateProfile(id: string, data: { name: string }) {
+    await connectToDatabase();
+    return User.findByIdAndUpdate(id, { name: data.name }, { returnDocument: 'after' }).lean();
+  }
+
+  static async updatePassword(id: string, newHashedPassword: string) {
+    await connectToDatabase();
+    return User.findByIdAndUpdate(id, { password: newHashedPassword }, { returnDocument: 'after' }).lean();
+  }
 }
