@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Noto_Sans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import TopBar from "@/components/navbar/TopBar";
-import Footer from "@/components/layout/Footer";
 
 import AuthProvider from "@/components/providers/AuthProvider";
 
@@ -37,11 +35,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <AuthProvider>
-          <TopBar />
-          <main className="flex-1">
-            {children}
-          </main>
-          <Footer />
+          {children}
         </AuthProvider>
       </body>
     </html>
